@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Formulario WhatsApp con Correo</title>
+   <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <h2>Contacto por WhatsApp</h2>
+  <form id="formulario">
+    <label for="correo">Correo electrónico:</label><br>
+    <input type="email" id="correo" name="correo" placeholder="correo@ejemplo.com" required><br><br>
+    <label for="numero">Tu número de WhatsApp (con lada):</label><br>
+    <input type="tel" id="numero" name="numero" placeholder="521XXXXXXXXXX" required><br><br>
+    <button type="submit">Enviar mensaje</button>
+  </form>
+
+  <script>
+    document.getElementById("formulario").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const correo = document.getElementById("correo").value.trim();
+      const numero = document.getElementById("numero").value.trim();
+      if (!/^\d{10,15}$/.test(numero)) {
+        alert("Por favor ingresa un número válido con lada (ej. 521XXXXXXXXXX).");
+        return;
+      }
+      const mensaje = `¡Hola! Quiero más información sobre...\nCorreo: ${correo}`;
+      const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
+      window.location.href = url;
+    });
+  </script>
+</body>
+</html>
